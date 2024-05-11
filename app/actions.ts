@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
+import { redirect } from "next/navigation";
 
 export async function create(data: FieldValues) {
   const dataRefined = {
@@ -11,18 +12,41 @@ export async function create(data: FieldValues) {
     password: data.password,
   };
 
+  await fetchAuth("register", dataRefined);
+  redirect("/");
+}
+
+export async function login(
+  data: FieldValues
+): Promise<{ error: string } | void> {
+  const dataRefined = {
+    email: data.email,
+    password: data.password,
+  };
+
   try {
-    const res = await fetch(process.env.REGISTER_URL as string, {
+    await fetchAuth("login", dataRefined);
+  } catch (err) {
+    return { error: "Email or password is incorrect" };
+  }
+  redirect("/");
+}
+
+async function fetchAuth(option: string, data: Object) {
+  try {
+    const res = await fetch(`${process.env.AUTH_URL as string}${option}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataRefined),
+      body: JSON.stringify(data),
     });
 
     const response = await res.json();
 
-    console.log(response.token)
+    if (res.status === 400) {
+      throw new Error(response.message);
+    }
 
     if (response.token) {
       cookies().set("session", response.token, {
@@ -32,6 +56,6 @@ export async function create(data: FieldValues) {
       });
     }
   } catch (err) {
-    console.error(err);
+    throw new Error("something went wrong");
   }
 }
