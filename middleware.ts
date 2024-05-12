@@ -31,6 +31,24 @@ export async function middleware(request: NextRequest) {
     if (authArray.includes(request.nextUrl.pathname)) {
       return NextResponse.redirect(request.nextUrl.origin + "/");
     }
+    if (request.nextUrl.pathname.includes("/product/")) {
+      const handle = request.nextUrl.pathname.split("/")[2];
+
+      const res = await fetch(
+        `${process.env.PRODUCT_SERVICE_URL as string}/name/${handle}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const product = await res.json();
+
+      if ("error" in product) {
+        return NextResponse.redirect(request.nextUrl.origin + "/");
+      }
+    }
   } else if (!session && !authArray.includes(request.nextUrl.pathname)) {
     return NextResponse.redirect(request.nextUrl.origin + "/login");
   }
