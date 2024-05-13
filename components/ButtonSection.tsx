@@ -6,11 +6,11 @@ import { useRouter } from "next/navigation";
 import swal from "sweetalert";
 
 const ButtonSection = ({
-  handle,
   token,
+  productUrl,
 }: {
-  handle: string;
   token: string;
+  productUrl: string;
 }) => {
   const router = useRouter();
   return (
@@ -29,20 +29,18 @@ const ButtonSection = ({
             dangerMode: true,
           }).then(async (willDelete) => {
             if (willDelete) {
-              const res = await fetch(
-                `${process.env.PRODUCT_SERVICE_URL as string}/name/${handle}`,
-                {
-                  method: "DELETE",
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                  },
-                }
-              );
+              const res = await fetch(productUrl, {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
               if (res.status === 204) {
                 swal("Poof! Your product has been deleted!", {
                   icon: "success",
+                }).then(() => {
+                  router.push("/");
                 });
-                router.push("/");
               }
             } else {
               swal({
