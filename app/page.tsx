@@ -3,6 +3,7 @@ import * as jose from "jose";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
 import { Card, CardHeader, CardFooter } from "@nextui-org/card";
+import { Tooltip } from "@nextui-org/tooltip";
 import Pagination from "@/components/Pagination";
 import Modal from "@/components/Modal";
 
@@ -66,17 +67,31 @@ export default async function Home({
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {produts.map((product: any, inx: number) => (
             <a href={`/product/${product.handle}`} key={inx} className="grow">
-              <Card fullWidth shadow="md">
-                <CardHeader>
-                  <h4 className="text-lg font-semibold">{product.title}</h4>
+              <Card fullWidth shadow="md" className="p-2">
+                <CardHeader className="pb-10">
+                  <Tooltip
+                    content={product.title}
+                    placement="bottom"
+                    classNames={{
+                      base: ["bg-black", "rounded-full"],
+                      content: [
+                        "py-2 px-4 shadow-xl font-semibold text-sm",
+                        "text-white bg-neutral-400",
+                      ],
+                    }}
+                  >
+                    <h4 className="text-lg font-semibold overflow-ellipsis whitespace-nowrap overflow-hidden">
+                      {product.title}
+                    </h4>
+                  </Tooltip>
                 </CardHeader>
                 <CardFooter className="flex justify-between">
                   <p className="text-sm">
-                    <span className="font-semibold">Price:</span> $
+                    <span className="font-semibold text-base">Price:</span> $
                     {product.price}
                   </p>
-                  <p>
-                    <span className="font-semibold">Stock:</span>{" "}
+                  <p className="text-sm">
+                    <span className="font-semibold text-base">Stock:</span>{" "}
                     {product.stock}
                   </p>
                 </CardFooter>
@@ -85,7 +100,7 @@ export default async function Home({
           ))}
         </div>
       </section>
-      <footer className="flex flex-wrap justify-center gap-4 items-center">
+      <footer className="flex flex-wrap justify-center gap-4 items-center mb-6">
         <Pagination totalPages={pagination} currectPage={currectPage} />
       </footer>
     </main>
