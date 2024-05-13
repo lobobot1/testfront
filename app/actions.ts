@@ -3,6 +3,8 @@
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { redirect } from "next/navigation";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { revalidatePath } from "next/cache";
 
 export async function create(data: FieldValues) {
   const dataRefined = {
@@ -52,6 +54,41 @@ export async function forgotPassword(data: FieldValues) {
     }
   } catch (err) {
     return { error: "Email is incorrect" };
+  }
+}
+
+export async function addProduct(data: FieldValues, currectPage: number) {
+  const session = cookies().get("session") as RequestCookie;
+
+  const token = session.value;
+
+  const dataRefined = {
+    title: data.title,
+    price: data.price,
+    sku: data.sku,
+    grams: data.grams,
+    stock: data.stock,
+    compare_price: data.compare_price,
+    barcode: data.barcode,
+    description: data.description,
+  };
+
+  try {
+    const res = await fetch(`${process.env.PRODUCT_SERVICE_URL as string}/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(dataRefined),
+    });
+
+    if (res.status === 400) {
+      throw new Error("Something went wrong");
+    }
+    revalidatePath(`/page/${currectPage}`);
+  } catch (err) {
+    return { error: "Something went wrong" };
   }
 }
 
