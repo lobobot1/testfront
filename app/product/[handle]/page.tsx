@@ -88,7 +88,7 @@ const page = async ({ params }: { params: { handle: string } }) => {
               </p>
             </CardFooter>
           </Card>
-          <ButtonSection productUrl={productUrl} token={token} />
+          <ButtonSection productUrl={productUrl} product={product} handle={handle} token={token} />
         </div>
       </section>
     </div>
