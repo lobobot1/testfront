@@ -1,7 +1,6 @@
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
 import NavBar from "@/components/NavBar";
-
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import ButtonSection from "@/components/ButtonSection";
 
@@ -36,6 +35,8 @@ const page = async ({ params }: { params: { handle: string } }) => {
 
   const product: Product = await res.json();
 
+  const productUrl = `${process.env.PRODUCT_SERVICE_URL as string}/${handle}`;
+
   return (
     <div>
       <NavBar />
@@ -49,7 +50,9 @@ const page = async ({ params }: { params: { handle: string } }) => {
         <div className=" mt-10 pt-10 px-10  flex flex-col justify-evenly">
           <Card fullWidth>
             <CardHeader>
-              <h2 className="text-xl font-semibold text-wrap">{product.title}</h2>
+              <h2 className="text-xl font-semibold text-wrap">
+                {product.title}
+              </h2>
             </CardHeader>
             <CardBody>
               <div
@@ -58,20 +61,34 @@ const page = async ({ params }: { params: { handle: string } }) => {
             </CardBody>
             <CardFooter className="flex justify-evenly">
               <p className="text-lg font-medium">
-                Price: <span className="font-normal text-base">$ {product.price.toFixed(2)}</span>{" "}
+                Price:{" "}
+                <span className="font-normal text-base">
+                  $ {product.price.toFixed(2)}
+                </span>{" "}
               </p>
               <p className="text-lg font-medium">
-                Stock: <span className="font-normal text-base">{product.stock}</span>{" "}
+                Stock:{" "}
+                <span className="font-normal text-base">{product.stock}</span>{" "}
               </p>
               <p className="text-lg font-medium">
-                SKU: <span className="font-normal text-base">{product.sku}</span>{" "}
+                SKU:{" "}
+                <span className="font-normal text-base">{product.sku}</span>{" "}
               </p>
               <p className="text-lg font-medium">
-                Barcode: <span className="font-normal text-base">{product.barcode}</span>{" "}
+                Barcode:{" "}
+                <span className="font-normal text-base">{product.barcode}</span>{" "}
+              </p>
+              <p className="text-lg font-medium">
+                Grams:{" "}
+                <span className="font-normal text-base">{product.grams}</span>{" "}
+              </p>
+              <p className="text-lg font-medium">
+                Compare Price:{" "}
+                <span className="font-normal text-base">{product.compare_price}</span>{" "}
               </p>
             </CardFooter>
           </Card>
-          <ButtonSection handle={handle} token={token} />
+          <ButtonSection productUrl={productUrl} handle={handle} token={token} />
         </div>
       </section>
     </div>
