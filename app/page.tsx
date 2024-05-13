@@ -2,9 +2,9 @@ import NavBar from "@/components/NavBar";
 import * as jose from "jose";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
-
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import { Card, CardHeader, CardFooter } from "@nextui-org/card";
 import Pagination from "@/components/Pagination";
+import Modal from "@/components/Modal";
 
 export default async function Home({
   searchParams,
@@ -58,6 +58,9 @@ export default async function Home({
             <span className="text-blue-600 font-semibold capitalize">{`${firstName}`}</span>
           </h1>
         </div>
+      </div>
+      <div className="flex justify-center">
+        <Modal currectPage={currectPage} />
       </div>
       <section className="p-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
