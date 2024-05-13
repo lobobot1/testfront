@@ -238,7 +238,7 @@ export default function App({currectPage}:{currectPage:number}) {
                     });
                   }}
                 >
-                  Action
+                  Add product
                 </Button>
               </ModalFooter>
             </>
