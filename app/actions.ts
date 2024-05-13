@@ -5,6 +5,7 @@ import { FieldValues } from "react-hook-form";
 import { redirect } from "next/navigation";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { revalidatePath } from "next/cache";
+import { veryfyToken } from "@/lib/session";
 
 export async function create(data: FieldValues) {
   const dataRefined = {
@@ -92,6 +93,45 @@ export async function addProduct(data: FieldValues, currectPage: number) {
   }
 }
 
+export async function updateProduct(
+  data: FieldValues,
+  productUrl: string,
+  handle: string
+) {
+  const session = cookies().get("session") as RequestCookie;
+
+  const token = session.value;
+
+  const dataRefined = {
+    title: data.title,
+    price: data.price,
+    sku: data.sku,
+    grams: data.grams,
+    stock: data.stock,
+    compare_price: data.compare_price,
+    barcode: data.barcode,
+    description: data.description,
+  };
+
+  try {
+    const res = await fetch(productUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(dataRefined),
+    });
+
+    if (res.status === 400) {
+      throw new Error("Something went wrong");
+    }
+    revalidatePath(`/product/${handle}`);
+  } catch (err) {
+    return { error: "Something went wrong" };
+  }
+}
+
 export async function deleteSession() {
   cookies().delete("session");
   redirect("/login");
@@ -114,10 +154,16 @@ async function fetchAuth(option: string, data: Object) {
     }
 
     if (response.token) {
+      const tokenDecode = await veryfyToken(response.token);
+
+      if (!tokenDecode) {
+        throw new Error("Token is invalid");
+      }
+
       cookies().set("session", response.token, {
         httpOnly: true,
         sameSite: "strict",
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        expires: new Date((tokenDecode.payload.exp as number) * 1000),
       });
     }
   } catch (err) {
