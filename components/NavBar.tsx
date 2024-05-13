@@ -1,5 +1,6 @@
 import React from "react";
 import { MdLogout } from "react-icons/md";
+import { deleteSession } from "../app/actions"
 
 const NavBar = () => {
   return (
@@ -11,12 +12,12 @@ const NavBar = () => {
           </span>
         </a>
       </div>
-      <div className="flex items-center">
+      <form action={deleteSession} className="flex items-center">
         <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-blue-500 hover:bg-white">
           Logout
           <MdLogout className="inline-block ml-2" />
         </button>
-      </div>
+      </form>
     </nav>
   );
 };
