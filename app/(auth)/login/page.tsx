@@ -61,6 +61,11 @@ const page = () => {
                 <ErrorInput message={errors.password.message as string} />
               )}
             </div>
+            <p className="px-12 pt-2">
+              <a href="/forgot-password" className="text-slate-500 underline font-bold">
+                {"Forgot password?"}
+              </a>
+            </p>
           </div>
           <div className="flex justify-center mb-5">
             <button
