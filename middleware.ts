@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { veryfyToken } from "./lib/session";
-import next from "next";
 
 export async function middleware(request: NextRequest) {
   const session = cookies().get("session");
