@@ -32,6 +32,34 @@ export async function login(
   redirect("/");
 }
 
+export async function forgotPassword(data: FieldValues) {
+  const dataRefined = {
+    email: data.email,
+    password: data.password,
+  };
+
+  try {
+    const res = await fetch(`${process.env.AUTH_URL as string}update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataRefined),
+    });
+
+    if (res.status === 400) {
+      throw new Error("Email not found");
+    }
+  } catch (err) {
+    return { error: "Email is incorrect" };
+  }
+}
+
+export async function deleteSession() {
+  cookies().delete("session");
+  redirect("/login");
+}
+
 async function fetchAuth(option: string, data: Object) {
   try {
     const res = await fetch(`${process.env.AUTH_URL as string}${option}`, {
