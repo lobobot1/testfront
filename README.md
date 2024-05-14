@@ -34,3 +34,25 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+# FrontEnd test
+
+## Installation
+
+Install the project with npm
+
+If you don't have npm install, you can install in the next link:
+
+[Install npm](https://nodejs.org/en/download)
+
+Already having installed npm we proceed to open the project and write in the project terminal the following command:
+
+```bash
+  git clone https://github.com/lobobot1/testfront.git
+  npm i
+```
+
+After you have installed all the necessary dependencies proceed to locate the file ".env.example" and make a copy of it, after having said duplicate change its name to ". env" and enter the required credentials and/or tokens
+
+
