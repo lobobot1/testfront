@@ -64,7 +64,7 @@ export default async function Home({
         <Modal currectPage={currectPage} />
       </div>
       <section className="p-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {produts.map((product: any, inx: number) => (
             <a href={`/product/${product.handle}`} key={inx} className="grow">
               <Card fullWidth shadow="md" className="p-2">
@@ -85,7 +85,7 @@ export default async function Home({
                     </h4>
                   </Tooltip>
                 </CardHeader>
-                <CardFooter className="flex justify-between">
+                <CardFooter className="flex flex-row  md:flex-row sm:flex-col justify-between">
                   <p className="text-sm">
                     <span className="font-semibold text-base">Price:</span> $
                     {product.price}
