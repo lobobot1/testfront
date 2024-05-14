@@ -16,7 +16,7 @@ interface Product {
   description: string;
 }
 
-const page = async ({ params }: { params: { handle: string } }) => {
+const Page = async ({ params }: { params: { handle: string } }) => {
   const session = cookies().get("session") as RequestCookie;
 
   const token = session.value;
@@ -95,4 +95,4 @@ const page = async ({ params }: { params: { handle: string } }) => {
   );
 };
 
-export default page;
+export default Page;

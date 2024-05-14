@@ -1,10 +1,10 @@
 "use client";
-import { FieldValue, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import ErrorInput from "../../../components/ErrorInput";
 import { login } from "../../actions";
 import swal from "sweetalert";
 
-const page = () => {
+const Page = () => {
   const {
     register,
     handleSubmit,
@@ -62,7 +62,10 @@ const page = () => {
               )}
             </div>
             <p className="px-12 pt-2">
-              <a href="/forgot-password" className="text-slate-500 underline font-bold">
+              <a
+                href="/forgot-password"
+                className="text-slate-500 underline font-bold"
+              >
                 {"Forgot password?"}
               </a>
             </p>
@@ -89,4 +92,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

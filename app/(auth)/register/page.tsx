@@ -4,7 +4,7 @@ import ErrorInput from "../../../components/ErrorInput";
 import { useTransition } from "react";
 import { create } from "../../actions";
 
-const page = () => {
+const Page = () => {
 
   const [isPending, startTransition] = useTransition();
   const {
@@ -159,4 +159,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
