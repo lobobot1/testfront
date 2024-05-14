@@ -17,6 +17,15 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(request.nextUrl.origin + "/login");
     }
 
+    const date = new Date((data?.payload.exp as number) * 1000);
+
+    const dateNow = new Date();
+
+    if (dateNow > date ) {
+      cookies().delete("session");
+      return NextResponse.redirect(request.nextUrl.origin + "/login");
+    }
+
     const res = await fetch(process.env.USER_SERVICE_URL as string, {
       headers: {
         Authorization: `Bearer ${token}`,
