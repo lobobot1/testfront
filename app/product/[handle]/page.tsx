@@ -46,7 +46,7 @@ const page = async ({ params }: { params: { handle: string } }) => {
         </a>{" "}
         / {handle}
       </div>
-      <section className="p-10">
+      <section className="md:p-10">
         <div className=" mt-10 pt-10 px-10  flex flex-col justify-evenly">
           <Card fullWidth>
             <CardHeader>
@@ -59,7 +59,7 @@ const page = async ({ params }: { params: { handle: string } }) => {
                 dangerouslySetInnerHTML={{ __html: product.description }}
               ></div>
             </CardBody>
-            <CardFooter className="flex justify-evenly">
+            <CardFooter className="flex flex-col md:flex-row justify-between lg:justify-evenly">
               <p className="text-lg font-medium">
                 Price:{" "}
                 <span className="font-normal text-base">
