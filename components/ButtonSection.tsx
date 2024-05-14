@@ -107,6 +107,7 @@ const ButtonSection = ({
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         scrollBehavior={"inside"}
+        placement="center"
       >
         <ModalContent>
           {(onClose: any) => (
