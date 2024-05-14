@@ -20,11 +20,11 @@ const page = () => {
 
   return (
     <div className="md:bg-[#c9d6ff] bg-[#fff] md:bg-[linear-gradient(to_right,_#031930,_#D1DDED)] flex items-center justify-center flex-col h-screen">
-      <div className="bg-[#fff] rounded-[30px] [box-shadow:0_5px_15px_rgba(0,_0,_0,_0.35)] relative overflow-hidden w-[768px] max-w-full min-h-[480px] p-5">
+      <div className="bg-[#fff] md:rounded-[30px] md:[box-shadow:0_5px_15px_rgba(0,_0,_0,_0.35)] relative overflow-hidden w-[768px] max-w-full min-h-[480px] p-5">
         <form onSubmit={onSubmit}>
           <h1 className="text-3xl font-bold text-center pt-5">{"Login"}</h1>
           <div className="py-16 px-10">
-            <div className="mb-5 px-10">
+            <div className="mb-5 md:px-10">
               <label htmlFor="email" className="block mb-1 font-medium">
                 Email
               </label>
@@ -38,7 +38,7 @@ const page = () => {
                 <ErrorInput message={errors.email.message as string} />
               )}
             </div>
-            <div className="px-10">
+            <div className="md:px-10">
               <label htmlFor="password" className="block mb-1 font-medium">
                 Password
               </label>
